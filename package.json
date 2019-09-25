@@ -1,11 +1,21 @@
 {
   "name": "arch-jest",
-  "version": "1.0.12",
+  "version": "1.0.21",
   "description": "Test javascript architecture",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "babel-node index.js",
+    "test": "babel-node test/index.js"
   },
   "author": "Lucas Migliorini",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-cli": "^6.26.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
 }
