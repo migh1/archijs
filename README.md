@@ -13,11 +13,16 @@ yarn add arch-jest
 ```
 
 ```javascript
-import { archJest } from "arch-jest";
+import { ArchJest } from "arch-jest";
 
 describe("Architecture", () => {
   it("Something", async () => {
-    archJest.printMsg("Your message");
+    const project = ArchJest.parseFromPath("src");
+    
+    const rule = ArchJest.defineThat().files().withNameMatching('/regexExp/');
+
+    //TODO
+    expect(project).toMatchRule(rule);
   });
 });
 ```
