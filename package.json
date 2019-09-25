@@ -8,6 +8,10 @@
     "test": "babel-node test/index.js"
   },
   "author": "Lucas Migliorini",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/migh1/arch-jest"
+  },
   "license": "MIT",
   "dependencies": {
     "babel-preset-env": "^1.7.0",
