@@ -1,53 +1,61 @@
-import { RuleBuilder } from './RuleBuilder';
+import RuleBuilder from './RuleBuilder';
 import fs from "fs";
 
-function load(path) {
-  const isFile = path.split("/").pop().includes('.');
-  if (isFile) {
-    const isValidFile = path.split("/").pop().split('.').pop().match(RegExp("^(js|jsx)$", "g"));
-    const length = path.split("/").pop().split('.').pop().length;
-    const isTestFile = length > 2 ? true : false;
-    if (isValidFile && !isTestFile) {
-      return fs.readFileSync(path, "utf-8");
-    }
-    return null;
-  }
-  return fs.readdirSync(path);
-}
-
-class ArchJest {
+export default class ArchJest {
   constructor() { }
 
+  static getPath() { return this.path }
+  static setPath(path) { this.path = path; }
+
+  static getParsedPath() { return this.parsedPath }
+  static setParsedPath(parsedPath) { this.parsedPath = parsedPath; }
+
+  static getPathType() { return this.pathType }
+  static setPathType(isFile) { this.pathType = isFile !== null ? isFile ? 'file' : 'dir' : null; }
+
   static defineThat() {
-    return RuleBuilder;
+    if (this.pathType !== null) {
+      return new RuleBuilder(this.getPath(), this.getParsedPath(), this.getPathType());
+    }
+    throw new Error("Not a valid file/dir to continue...");
   }
 
   static parseFromPath(path) {
-    const parsedPath = load(path);
-    this.setPath(path);
-    this.setParsedPath(parsedPath);
+    this.load(path);
     return this.getParsedPath();
   }
 
-  static getPath() {
-    console.log(this.path);
-    return this;
+  static isaValidFile(path) {
+    const isValidFile = path.split("/").pop().split('.').pop().match(RegExp("^(js|jsx)$", "g"));
+    const length = path.split("/").pop().split('.').pop().length;
+    const isTestFile = length > 2 ? true : false;
+    return isValidFile && !isTestFile;
   }
 
-  static setPath(path) {
-    this.path = path;
+  static isFile(path) {
+    return path.split("/").pop().includes('.');
   }
 
-  static getParsedPath() {
-    console.log(this.parsedPath);
-    return this;
+  static load(path) {
+    this.setPath(path);
+    return this.isFile(path) ? this.loadAsFile(path) : this.loadAsDir(path);
   }
 
-  static setParsedPath(parsedPath) {
-    this.parsedPath = parsedPath;
+  static loadAsFile(path) {
+    let parsedPath = null;
+    let isFile = null;
+    if (this.isaValidFile(path)) {
+      parsedPath = fs.readFileSync(path, "utf-8");
+      isFile = isaFile;
+    }
+    this.setParsedPath(parsedPath);
+    this.setPathType(isFile);
   }
+
+  static loadAsDir(path) {
+    this.setParsedPath(fs.readdirSync(path));
+    this.setPathType(false);
+  }
+
 };
 
-module.exports = {
-  ArchJest,
-};
