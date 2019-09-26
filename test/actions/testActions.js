@@ -11,7 +11,13 @@ export function actionTwo(args) {
   };
 }
 
-export function actionTree(args) {
+export function actionThree(args) {
+  return {
+    three: args,
+  };
+}
+
+export function failFour(args) {
   return {
     tree: args,
   };
