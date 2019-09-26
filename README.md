@@ -38,6 +38,7 @@ describe("Architecture", () => {
 - [ ] Improve dir name validation
 - [ ] Add exceptions validation
 
+## SUGGESTIONS
 
 - Please any suggestion you are invited to open an issue: https://github.com/migh1/arch-jest/issues
 - You also can fork this project to contribute 
