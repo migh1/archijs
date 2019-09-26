@@ -13,7 +13,7 @@ async function getFiles(dir, regex) {
   return files
     .reduce((a, f) => a.concat(f), [])
     .map(m => m.replace(/\\/g, '/'))
-    .filter(f => f.match(regex))
+    .filter(f => f.match(new RegExp(`\/*.${regex}.*\/`, 'mi')))
   // .filter(g => g.split('\\').splice(g.split('\\').length - 1, 1).join('\\').match(regex))
 }
 
@@ -53,7 +53,7 @@ export default class RuleBuilder {
   // TODO: remove timeOut to work with async getFiles method
   matchChildrensName(regex) {
     setTimeout(() => {
-      this.childrensName = this.nameMatching.filter(g => !g.split('/')[g.split('/').length - 1].match(regex))
+      this.childrensName = this.nameMatching.filter(g => !g.split('/')[g.split('/').length - 1].match(new RegExp(`${regex}`, 'mi')))
       console.log(this.childrensName);
       return this.childrensName;
     }, 200);

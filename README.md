@@ -22,23 +22,24 @@ describe("Architecture", () => {
     const rule = await ArchJest
       .defineThat()
       .files()
-      .withNameMatching(/\/*.actions.*\//mi) // All foders that have "actions" in the name
+      .withNameMatching('actions') // All foders that have "actions" in the name
       .should()
-      .matchChildrensName(/.actions./mi) // Check if the child file filtered before has "actions" on its name
+      .matchChildrensName('actions') // Check if the child file filtered before has "actions" on its name
 
     expect(project).toMatchRule(rule); // TODO: implements this feature
   });
 });
 ```
 
-## TODO
+## Todo
 
 - [ ] Fix async issue on nested functions
 - [ ] Implement feature to read file content and validates the functions names
 - [ ] Improve dir name validation
 - [ ] Add exceptions validation
+- [ ] Inject function into jest expect()
 
-## SUGGESTIONS
+## Suggestions
 
 - Please any suggestion you are invited to open an issue: https://github.com/migh1/arch-jest/issues
 - You also can fork this project to contribute 
