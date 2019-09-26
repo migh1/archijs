@@ -33,7 +33,12 @@ describe("Architecture", () => {
 
 ## TODO
 
-Fix async issue on nested functions
-Please any suggestion you are invited to open an issue: https://github.com/migh1/arch-jest/issues
-You also can fork this project to contribute 
+- [ ] Fix async issue on nested functions
+- [ ] Implement feature to read file content and validates the functions names
+- [ ] Improve dir name validation
+- [ ] Add exceptions validation
+
+
+- Please any suggestion you are invited to open an issue: https://github.com/migh1/arch-jest/issues
+- You also can fork this project to contribute 
 
