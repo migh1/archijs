@@ -1,4 +1,4 @@
-import RuleBuilder from './RuleBuilder';
+import RuleBuilder from "./RuleBuilder";
 import fs from "fs";
 
 export default class ArchJest {
@@ -15,7 +15,7 @@ export default class ArchJest {
 
   static defineThat() {
     if (this.pathType !== null) {
-      return new RuleBuilder(this.getPath(), this.getParsedPath(), this.getPathType());
+      return RuleBuilder(this.getPath(), this.getParsedPath(), this.getPathType());
     }
     throw new Error("Not a valid file/dir to continue...");
   }

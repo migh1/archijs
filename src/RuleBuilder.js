@@ -17,46 +17,63 @@ async function getFiles(dir, regex) {
   // .filter(g => g.split('\\').splice(g.split('\\').length - 1, 1).join('\\').match(regex))
 }
 
-export default class RuleBuilder {
+export class RuleBuilder {
   constructor(path, parsedPath, pathType) {
+    this.path = path;
     this.parsedPath = parsedPath;
     this.pathType = pathType;
-    this.path = path;
-    this.dirRegex = null;
-    this.nameMatching = null;
-    this.childrensName = null;
   }
 
   isFile(path) {
     return path.split("/").pop().includes('.');
   }
 
-  files() {
-    return this;
+  asyncDir(resolve) {
+    resolve();
   }
 
-  // TODO: Fix the async getFiles method due to should() been calling at the same time.
-  withNameMatching(regex) {
+  asyncFiles(resolve) {
+    resolve();
+  }
+
+  asyncShould(resolve) {
+    resolve();
+  }
+
+  asyncWithNameMatching(regex, resolve) {
     this.dirRegex = regex;
     if (this.pathType === 'dir') {
       getFiles(this.path, regex)
-        .then(files => this.nameMatching = files)
+        .then(files => { this.nameMatching = files; resolve() })
         .catch(e => console.error(e));
     }
-    return this;
   }
 
-  should() {
-    return this;
+  asyncMatchChildrensName(regex, resolve) {
+    this.childrensName = this.nameMatching.filter(g => !g.split('/')[g.split('/').length - 1].match(new RegExp(`${regex}`, 'mi')))
+    console.log(this.childrensName);
+    resolve();
   }
 
-  // TODO: remove timeOut to work with async getFiles method
-  matchChildrensName(regex) {
-    setTimeout(() => {
-      this.childrensName = this.nameMatching.filter(g => !g.split('/')[g.split('/').length - 1].match(new RegExp(`${regex}`, 'mi')))
-      console.log(this.childrensName);
-      return this.childrensName;
-    }, 200);
-  }
-};
+  dir(...source) { return new Promise(resolve => this.asyncDir(resolve)) }
+  files(...source) { return new Promise(resolve => this.asyncFiles(resolve)) }
+  should(...source) { return new Promise(resolve => this.asyncShould(resolve)) }
+  withNameMatching(...source) { return new Promise(resolve => this.asyncWithNameMatching(...source, resolve)) }
+  matchChildrensName(...source) { return new Promise(resolve => this.asyncMatchChildrensName(...source, resolve)) }
 
+  Init(previousActions, ...params) {
+    return {
+      dir: (...source) => this.Init(previousActions.then(() => this.dir(...source)), ...params),
+      files: (...source) => this.Init(previousActions.then(() => this.files(...source)), ...params),
+      should: (...source) => this.Init(previousActions.then(() => this.should(...source)), ...params),
+      withNameMatching: (...source) => this.Init(previousActions.then(() => this.withNameMatching(...source)), ...params),
+      matchChildrensName: (...source) => this.Init(previousActions.then(() => this.matchChildrensName(...source)), ...params),
+    };
+  }
+}
+
+function init(...params) {
+  return new RuleBuilder(...params).Init(Promise.resolve(), ...params);
+}
+
+export default init;

@@ -1,8 +1,8 @@
-import ArchJestTest from "../src/ArchJestTest";
+import ArchJest from "../src/ArchJest";
 
 (async () => {
-  const project = ArchJestTest.parseFromPath("./test");
-  const rule = await ArchJestTest
+  const project = ArchJest.parseFromPath("./test");
+  const rule = ArchJest
     .defineThat()
     .dir()
     .withNameMatching('actions') // All foders that have "actions"
