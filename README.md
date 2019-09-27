@@ -1,25 +1,25 @@
-![npm](https://img.shields.io/npm/v/arch-jest)
-![NPM](https://img.shields.io/npm/l/arch-jest)
+![npm](https://img.shields.io/npm/v/arch-js)
+![NPM](https://img.shields.io/npm/l/arch-js)
 ![GitHub followers](https://img.shields.io/github/followers/migh1?label=%40migh1&style=social)
 
-# arch-jest
+# arch-js
 
 A package to test javascript architecture
 
 ## Usage
 
 ```bash
-yarn add arch-jest
+yarn add arch-js
 ```
 
 ```javascript
-import { ArchJest } from "arch-jest";
+import { ArchJs } from "arch-js";
 
 describe("Architecture", () => {
   it("Something", async () => {
-    const project = ArchJest.parseFromPath("src");
+    const project = ArchJs.parseFromPath("src");
     
-    const rule = await ArchJest
+    const rule = await ArchJs
       .defineThat()
       .dir()
       .withNameMatching('actions') // All foders that have "actions" in the name
@@ -41,6 +41,6 @@ describe("Architecture", () => {
 
 ## Suggestions
 
-- Please any suggestion you are invited to open an issue: https://github.com/migh1/arch-jest/issues
+- Please any suggestion you are invited to open an issue: https://github.com/migh1/arch-js/issues
 - You also can fork this project to contribute 
 
