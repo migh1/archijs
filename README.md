@@ -33,7 +33,7 @@ describe("Architecture", () => {
 
 ## Todo
 
-- [x] Fix async issue on nested functions
+- [x] Fix async issue on chained functions
 - [ ] Implement feature to read file content and validates the functions names
 - [ ] Improve dir name validation
 - [ ] Add exceptions validation
