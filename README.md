@@ -21,7 +21,7 @@ describe("Architecture", () => {
     
     const rule = await ArchJest
       .defineThat()
-      .files()
+      .dir()
       .withNameMatching('actions') // All foders that have "actions" in the name
       .should()
       .matchChildrensName('actions') // Check if the child file filtered before has "actions" on its name
@@ -33,7 +33,7 @@ describe("Architecture", () => {
 
 ## Todo
 
-- [ ] Fix async issue on nested functions
+- [x] Fix async issue on nested functions
 - [ ] Implement feature to read file content and validates the functions names
 - [ ] Improve dir name validation
 - [ ] Add exceptions validation

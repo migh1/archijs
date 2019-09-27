@@ -2,7 +2,7 @@ import ArchJest from "../src/ArchJest";
 import RuleBuilderTest from "../src/RuleBuilderTest";
 const rule = new RuleBuilderTest('a', 'b', 'c');
 rule
-  .dir('./src')
+  .dir('./src', 'potato')
   .withNameMatching('oi')
   // .should()
   // .matchChildrensName()

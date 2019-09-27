@@ -6,9 +6,14 @@ export class RuleBuilderTest {
     this.withNameMatching = this.withNameMatching.bind(this);
     this.matchChildrensName = this.matchChildrensName.bind(this);
   }
+
+  isFile(path) {
+    return path.split("/").pop().includes('.');
+  }
+
   asyncDir(callback) {
     console.log('asyncDir() called')
-    setTimeout(() => { console.log('asyncDir() result'); callback() }, 100);
+    setTimeout(() => { console.log('asyncDir() result'); callback() }, 1000);
   }
 
   asyncFiles(callback) {
@@ -22,7 +27,6 @@ export class RuleBuilderTest {
   }
 
   asyncWithNameMatching(callback) {
-    console.log('asyncWithNameMatching() called')
     setTimeout(() => { console.log('asyncWithNameMatching() result'); callback() }, 100);
   }
 
@@ -31,19 +35,19 @@ export class RuleBuilderTest {
     setTimeout(() => { console.log('asyncMatchChildrensName() result'); callback() }, 100);
   }
 
-  dir(...source) { console.log(...source); return new Promise(resolve => this.asyncDir(resolve)) }
-  files(...source) { console.log(...source); return new Promise(resolve => this.asyncFiles(resolve)) }
-  should(...source) { console.log(...source); return new Promise(resolve => this.asyncShould(resolve)) }
-  withNameMatching(...source) { console.log(...source); return new Promise(resolve => this.asyncWithNameMatching(resolve)) }
-  matchChildrensName(...source) { console.log(...source); return new Promise(resolve => this.asyncMatchChildrensName(resolve)) }
+  dir(...source) { return new Promise(resolve => this.asyncDir(resolve)) }
+  files(...source) { return new Promise(resolve => this.asyncFiles(resolve)) }
+  should(...source) { return new Promise(resolve => this.asyncShould(resolve)) }
+  withNameMatching(...source) { return new Promise(resolve => this.asyncWithNameMatching(resolve)) }
+  matchChildrensName(...source) { return new Promise(resolve => this.asyncMatchChildrensName(resolve)) }
 
   initlzr(previousActions, ...params) {
     return {
-      dir: (...source) => this.initlzr(previousActions.then(this.dir(...source)), ...params),
-      files: (...source) => this.initlzr(previousActions.then(this.files(...source)), ...params),
-      should: (...source) => this.initlzr(previousActions.then(this.should(...source)), ...params),
-      withNameMatching: (...source) => this.initlzr(previousActions.then(this.withNameMatching(...source)), ...params),
-      matchChildrensName: (...source) => this.initlzr(previousActions.then(this.matchChildrensName(...source)), ...params),
+      dir: (...source) => this.initlzr(previousActions.then(() => this.dir(...source)), ...params),
+      files: (...source) => this.initlzr(previousActions.then(() => this.files(...source)), ...params),
+      should: (...source) => this.initlzr(previousActions.then(() => this.should(...source)), ...params),
+      withNameMatching: (...source) => this.initlzr(previousActions.then(() => this.withNameMatching(...source)), ...params),
+      matchChildrensName: (...source) => this.initlzr(previousActions.then(() => this.matchChildrensName(...source)), ...params),
     };
   }
 }
