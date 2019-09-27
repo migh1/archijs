@@ -15,7 +15,7 @@ export default class ArchJest {
 
   static defineThat() {
     if (this.pathType !== null) {
-      return new RuleBuilder(this.getPath(), this.getParsedPath(), this.getPathType());
+      return RuleBuilderTest(this.getPath(), this.getParsedPath(), this.getPathType());
     }
     throw new Error("Not a valid file/dir to continue...");
   }

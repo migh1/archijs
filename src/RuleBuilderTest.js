@@ -1,45 +1,65 @@
+const { promisify } = require('util');
+const { resolve } = require('path');
+const fs = require('fs');
+const readdir = promisify(fs.readdir);
+const stat = promisify(fs.stat);
+
+async function getFiles(dir, regex) {
+  const subdirs = await readdir(dir);
+  const files = await Promise.all(subdirs.map(async (subdir) => {
+    const res = resolve(dir, subdir);
+    return (await stat(res)).isDirectory() ? getFiles(res, regex) : res;
+  }));
+  return files
+    .reduce((a, f) => a.concat(f), [])
+    .map(m => m.replace(/\\/g, '/'))
+    .filter(f => f.match(new RegExp(`\/*.${regex}.*\/`, 'mi')))
+  // .filter(g => g.split('\\').splice(g.split('\\').length - 1, 1).join('\\').match(regex))
+}
+
 export class RuleBuilderTest {
-  constructor() {
-    this.dir = this.dir.bind(this);
-    this.files = this.files.bind(this);
-    this.should = this.should.bind(this);
-    this.withNameMatching = this.withNameMatching.bind(this);
-    this.matchChildrensName = this.matchChildrensName.bind(this);
+  constructor(path, parsedPath, pathType) {
+    this.path = path;
+    this.parsedPath = parsedPath;
+    this.pathType = pathType;
   }
 
   isFile(path) {
     return path.split("/").pop().includes('.');
   }
 
-  asyncDir(callback) {
-    console.log('asyncDir() called')
-    setTimeout(() => { console.log('asyncDir() result'); callback() }, 1000);
+  asyncDir(resolve) {
+    resolve();
   }
 
-  asyncFiles(callback) {
-    console.log('asyncFiles() called')
-    setTimeout(() => { console.log('asyncFiles() result'); callback() }, 100);
+  asyncFiles(resolve) {
+    resolve();
   }
 
-  asyncShould(callback) {
-    console.log('asyncShould() called')
-    setTimeout(() => { console.log('asyncShould() result'); callback() }, 100);
+  asyncShould(resolve) {
+    resolve();
   }
 
-  asyncWithNameMatching(callback) {
-    setTimeout(() => { console.log('asyncWithNameMatching() result'); callback() }, 100);
+  asyncWithNameMatching(regex, resolve) {
+    this.dirRegex = regex;
+    if (this.pathType === 'dir') {
+      getFiles(this.path, regex)
+        .then(files => { this.nameMatching = files; resolve() })
+        .catch(e => console.error(e));
+    }
   }
 
-  asyncMatchChildrensName(callback) {
-    console.log('asyncMatchChildrensName() called')
-    setTimeout(() => { console.log('asyncMatchChildrensName() result'); callback() }, 100);
+  asyncMatchChildrensName(regex, resolve) {
+    this.childrensName = this.nameMatching.filter(g => !g.split('/')[g.split('/').length - 1].match(new RegExp(`${regex}`, 'mi')))
+    console.log(this.childrensName);
+    resolve();
   }
 
   dir(...source) { return new Promise(resolve => this.asyncDir(resolve)) }
   files(...source) { return new Promise(resolve => this.asyncFiles(resolve)) }
   should(...source) { return new Promise(resolve => this.asyncShould(resolve)) }
-  withNameMatching(...source) { return new Promise(resolve => this.asyncWithNameMatching(resolve)) }
-  matchChildrensName(...source) { return new Promise(resolve => this.asyncMatchChildrensName(resolve)) }
+  withNameMatching(...source) { return new Promise(resolve => this.asyncWithNameMatching(...source, resolve)) }
+  matchChildrensName(...source) { return new Promise(resolve => this.asyncMatchChildrensName(...source, resolve)) }
 
   initlzr(previousActions, ...params) {
     return {
@@ -53,7 +73,7 @@ export class RuleBuilderTest {
 }
 
 function init(...params) {
-  return new RuleBuilderTest().initlzr(Promise.resolve(), ...params);
+  return new RuleBuilderTest(...params).initlzr(Promise.resolve(), ...params);
 }
 
 export default init;
