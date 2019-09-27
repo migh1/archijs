@@ -37,7 +37,7 @@ describe("Architecture", () => {
 - [ ] Implement feature to read file content and validates the functions names
 - [ ] Improve dir name validation
 - [ ] Add exceptions validation
-- [ ] Inject function into jest expect()
+- [ ] Implement @types/jest
 
 ## Suggestions
 
