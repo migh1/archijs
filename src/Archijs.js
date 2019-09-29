@@ -1,47 +1,62 @@
 import RuleBuilder from "./RuleBuilder";
+import Matcher from "./Matcher";
 import fs from "fs";
+import fspath from 'path';
 
-export default class Archijs {
+class Archijs {
   constructor() { }
 
-  static getPath() { return this.path }
-  static setPath(path) { this.path = path; }
+  getPath() { return this.path }
+  setPath(path) { this.path = path; }
 
-  static getParsedPath() { return this.parsedPath }
-  static setParsedPath(parsedPath) { this.parsedPath = parsedPath; }
+  getParsedPath() { return this.parsedPath }
+  setParsedPath(parsedPath) { this.parsedPath = parsedPath; }
 
-  static getPathType() { return this.pathType }
-  static setPathType(isFile) { this.pathType = isFile !== null ? isFile ? 'file' : 'dir' : null; }
+  getPathType() { return this.pathType }
+  setPathType(isFile) { this.pathType = isFile !== null ? isFile ? 'file' : 'dir' : null; }
 
-  static defineThat() {
+  defineThat() {
     if (this.pathType !== null) {
       return RuleBuilder(this.getPath(), this.getParsedPath(), this.getPathType());
     }
     throw new Error("Not a valid file/dir to continue...");
   }
 
-  static parseFromPath(path) {
+  parseFromPath(path) {
     this.load(path);
     return this.getParsedPath();
   }
 
-  static isaValidFile(path) {
+  isaValidFile(path) {
     const isValidFile = path.split("/").pop().split('.').pop().match(RegExp("^(js|jsx)$", "g"));
     const length = path.split("/").pop().split('.').pop().length;
     const isTestFile = length > 2 ? true : false;
     return isValidFile && !isTestFile;
   }
 
-  static isFile(path) {
+  isFile(path) {
     return path.split("/").pop().includes('.');
   }
 
-  static load(path) {
+  traverseDir(dir, parsedPath) {
+    if (!dir.match('node_modules')) {
+      fs.readdirSync(dir).forEach(file => {
+        let fullPath = fspath.join(dir, file);
+        parsedPath.push(fullPath);
+        if (fs.lstatSync(fullPath).isDirectory()) {
+          this.traverseDir(fullPath, parsedPath);
+        }
+      });
+    }
+    return parsedPath;
+  }
+
+  load(path) {
     this.setPath(path);
     return this.isFile(path) ? this.loadAsFile(path) : this.loadAsDir(path);
   }
 
-  static loadAsFile(path) {
+  loadAsFile(path) {
     let parsedPath = null;
     let isFile = null;
     if (this.isaValidFile(path)) {
@@ -52,10 +67,12 @@ export default class Archijs {
     this.setPathType(isFile);
   }
 
-  static loadAsDir(path) {
-    this.setParsedPath(fs.readdirSync(path));
+  loadAsDir(path) {
+    const parsedPath = [];
+    this.setParsedPath(this.traverseDir(path, parsedPath));
     this.setPathType(false);
   }
-
 };
+
+export default new Archijs();
 
