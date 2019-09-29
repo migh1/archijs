@@ -31,6 +31,10 @@ describe("Architecture", () => {
 });
 ```
 
+## Demo
+
+![Usage demo](demo/demo.gif)
+
 ## Todo
 
 - [x] Fix async issue on chained functions.
