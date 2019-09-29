@@ -1,11 +1,12 @@
 {
   "name": "archijs",
-  "version": "1.0.30",
+  "version": "2.0.0",
   "description": "Test javascript architecture",
   "main": "index.js",
   "scripts": {
     "start": "babel-node index.js",
-    "test": "babel-node test/index.js"
+    "testi": "babel-node test/index.js",
+    "test": "jest"
   },
   "author": "Lucas Migliorini",
   "repository": {
@@ -14,13 +15,26 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@babel/preset-env": "^7.6.2",
+    "@types/jest": "^24.0.18",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "np": "^5.1.0"
   },
   "babel": {
     "presets": [
-      "env"
+      [
+        "@babel/preset-env",
+        {
+          "modules": "commonjs",
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
     ]
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }

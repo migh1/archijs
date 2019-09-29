@@ -41,7 +41,7 @@ export class RuleBuilder {
   }
 
   asyncWithNameMatching(regex, resolve) {
-    this.dirRegex = regex;
+    this.parentRegex = regex;
     if (this.pathType === 'dir') {
       getFiles(this.path, regex)
         .then(files => { this.nameMatching = files; resolve() })
@@ -50,9 +50,9 @@ export class RuleBuilder {
   }
 
   asyncMatchChildrensName(regex, resolve) {
+    this.childRegex = regex;
     this.childrensName = this.nameMatching.filter(g => !g.split('/')[g.split('/').length - 1].match(new RegExp(`${regex}`, 'mi')))
-    console.log(this.childrensName);
-    resolve();
+    resolve(this.childrensName);
   }
 
   dir(...source) { return new Promise(resolve => this.asyncDir(resolve)) }
@@ -67,7 +67,7 @@ export class RuleBuilder {
       files: (...source) => this.Init(previousActions.then(() => this.files(...source)), ...params),
       should: (...source) => this.Init(previousActions.then(() => this.should(...source)), ...params),
       withNameMatching: (...source) => this.Init(previousActions.then(() => this.withNameMatching(...source)), ...params),
-      matchChildrensName: (...source) => this.Init(previousActions.then(() => this.matchChildrensName(...source)), ...params),
+      matchChildrensName: (...source) => previousActions.then(() => this.matchChildrensName(...source)),
     };
   }
 }
