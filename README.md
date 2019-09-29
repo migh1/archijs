@@ -1,5 +1,5 @@
 ![npm](https://img.shields.io/npm/v/archijs)
-![NPM](https://img.shields.io/npm/l/archijs)
+![GitHub](https://img.shields.io/github/license/migh1/archijs)
 ![GitHub followers](https://img.shields.io/github/followers/migh1?label=%40migh1&style=social)
 
 # archijs
@@ -33,11 +33,11 @@ describe("Architecture", () => {
 
 ## Todo
 
-- [x] Fix async issue on chained functions
-- [ ] Implement feature to read file content and validates the functions names
-- [ ] Improve dir name validation
-- [ ] Add exceptions validation
-- [ ] Implement @types/jest
+- [x] Fix async issue on chained functions.
+- [ ] Implement feature to read file content and validates the functions names.
+- [ ] Improve dir name validation.
+- [ ] Add exceptions validation.
+- [ ] Implement @types/jest.
 
 ## Suggestions
 
