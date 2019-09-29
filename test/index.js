@@ -1,8 +1,8 @@
-import ArchJest from "../src/ArchJest";
+import Archijs from "../src/Archijs";
 
 (async () => {
-  const project = ArchJest.parseFromPath("./test");
-  const rule = ArchJest
+  const project = Archijs.parseFromPath("./test");
+  const rule = Archijs
     .defineThat()
     .dir()
     .withNameMatching('actions') // All foders that have "actions"

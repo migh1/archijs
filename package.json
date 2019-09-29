@@ -1,5 +1,5 @@
 {
-  "name": "arch-js",
+  "name": "archijs",
   "version": "1.0.30",
   "description": "Test javascript architecture",
   "main": "index.js",
@@ -10,12 +10,13 @@
   "author": "Lucas Migliorini",
   "repository": {
     "type": "git",
-    "url": "https://github.com/migh1/arch-js"
+    "url": "https://github.com/migh1/archijs"
   },
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "np": "^5.1.0"
   },
   "babel": {
     "presets": [

@@ -1,7 +1,7 @@
 import RuleBuilder from "./RuleBuilder";
 import fs from "fs";
 
-export default class ArchJest {
+export default class Archijs {
   constructor() { }
 
   static getPath() { return this.path }
