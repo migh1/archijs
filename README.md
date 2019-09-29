@@ -1,5 +1,5 @@
 ![npm](https://img.shields.io/npm/v/archijs)
-![NPM](https://img.shields.io/npm/l/archijs)
+![GitHub](https://img.shields.io/github/license/migh1/archijs)
 ![GitHub followers](https://img.shields.io/github/followers/migh1?label=%40migh1&style=social)
 
 # archijs
