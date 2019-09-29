@@ -1,5 +1,5 @@
 ![npm](https://img.shields.io/npm/v/archijs)
-![NPM](https://img.shields.io/npm/l/archijs)
+![GitHub](https://img.shields.io/github/license/migh1/archijs)
 ![GitHub followers](https://img.shields.io/github/followers/migh1?label=%40migh1&style=social)
 
 # archijs
@@ -26,7 +26,7 @@ describe("Architecture", () => {
       .should()
       .matchChildrensName('actions') // Check if the child file filtered before has "actions" on its name
 
-    expect(project).toMatchRule(rule); // TODO: implements this feature
+    expect(project).toMatchArch(rule); // Working
   });
 });
 ```
@@ -34,10 +34,11 @@ describe("Architecture", () => {
 ## Todo
 
 - [x] Fix async issue on chained functions.
+- [x] Implement @types/jest.
+- [ ] Remove async/await on test using
 - [ ] Implement feature to read file content and validates the functions names.
 - [ ] Improve dir name validation.
 - [ ] Add exceptions validation.
-- [ ] Implement @types/jest.
 
 ## Suggestions
 
