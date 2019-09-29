@@ -1,6 +1,6 @@
 import Archijs from "../src/Archijs";
 
-test('test 1', async () => {
+test('test folder nomenclature', async () => {
   const project = Archijs.parseFromPath("./test");
   const rule = await Archijs
     .defineThat()
