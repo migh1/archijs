@@ -1,6 +1,6 @@
-import Archijs from "../src/Archijs";
+const Archijs = require("../src/Archijs");
 
-test('test folder nomenclature', () => {
+test('Should have fileName according to folderName', () => {
   const project = Archijs.parseFromPath("./test");
   const rule = Archijs
     .defineThat()

@@ -1,3 +1,2 @@
-module.exports = {
-  printMsg: require("./src/printMsg")
-};
+const printMsg = require("./src/printMsg");
+printMsg('Started Archijs');

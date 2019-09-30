@@ -1,7 +1,7 @@
-import RuleBuilder from "./RuleBuilder";
-import Matcher from "./Matcher";
-import fs from "fs";
-import fspath from 'path';
+const RuleBuilder = require("./RuleBuilder");
+const Matcher = require("./Matcher");
+const fs = require("fs");
+const fspath = require('path');
 
 class Archijs {
   constructor() { }
@@ -74,5 +74,4 @@ class Archijs {
   }
 };
 
-export default new Archijs();
-
+module.exports = new Archijs();
