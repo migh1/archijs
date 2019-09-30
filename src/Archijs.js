@@ -13,13 +13,13 @@ class Archijs {
   setParsedPath(parsedPath) { this.parsedPath = parsedPath; }
 
   getPathType() { return this.pathType }
-  setPathType(isFile) { this.pathType = isFile !== null ? isFile ? 'file' : 'dir' : null; }
+  setPathType(isFile) { this.pathType = isFile !== null ? isFile ? 'file' : 'folder' : null; }
 
   defineThat() {
     if (this.pathType !== null) {
       return RuleBuilder(this.getPath(), this.getParsedPath(), this.getPathType());
     }
-    throw new Error("Not a valid file/dir to continue...");
+    throw new Error("Not a valid file/folder to continue...");
   }
 
   parseFromPath(path) {
@@ -41,7 +41,7 @@ class Archijs {
   traverseDir(dir, parsedPath) {
     if (!dir.match('node_modules')) {
       fs.readdirSync(dir).forEach(file => {
-        let fullPath = fspath.join(dir, file);
+        let fullPath = fspath.join(dir, file).replace(/\\/g, '/');
         parsedPath.push(fullPath);
         if (fs.lstatSync(fullPath).isDirectory()) {
           this.traverseDir(fullPath, parsedPath);
@@ -60,7 +60,7 @@ class Archijs {
     let parsedPath = null;
     let isFile = null;
     if (this.isaValidFile(path)) {
-      parsedPath = fs.readFileSync(path, "utf-8");
+      parsedPath = fs.readFileSync(path, "utf8");
       isFile = isaFile;
     }
     this.setParsedPath(parsedPath);
