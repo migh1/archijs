@@ -15,13 +15,13 @@ yarn add archijs
 ```javascript
 import { Archijs } from "archijs";
 
-describe("Architecture", () => {
-  it("Something", async () => {
+describe("Javascript Architecture", () => {
+  it("Should have fileName according to folderName", () => {
     const project = Archijs.parseFromPath("src");
     
-    const rule = await Archijs
+    const rule = Archijs
       .defineThat()
-      .dir()
+      .folder()
       .withNameMatching('actions') // All foders that have "actions" in the name
       .should()
       .matchChildrensName('actions') // Check if the child file filtered before has "actions" on its name
@@ -39,7 +39,7 @@ describe("Architecture", () => {
 
 - [x] Fix async issue on chained functions.
 - [x] Implement @types/jest.
-- [ ] Remove async/await on test using
+- [x] Remove async/await on test using
 - [ ] Implement feature to read file content and validates the functions names.
 - [ ] Improve dir name validation.
 - [ ] Add exceptions validation.
