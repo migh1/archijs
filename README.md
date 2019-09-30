@@ -13,7 +13,7 @@ yarn add archijs
 ```
 
 ```javascript
-import { Archijs } from "archijs";
+import Archijs from "archijs";
 
 describe("Javascript Architecture", () => {
   it("Should have fileName according to folderName", () => {
