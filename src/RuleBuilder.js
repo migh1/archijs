@@ -1,4 +1,4 @@
-export class RuleBuilder {
+class RuleBuilder {
   constructor(path, parsedPath, pathType) {
     this.path = path;
     this.parsedPath = parsedPath;
@@ -33,4 +33,4 @@ function init(...params) {
   return new RuleBuilder(...params).Init();
 }
 
-export default init;
+module.exports = init;

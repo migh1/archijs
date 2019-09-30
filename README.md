@@ -40,6 +40,7 @@ describe("Javascript Architecture", () => {
 - [x] Fix async issue on chained functions.
 - [x] Implement @types/jest.
 - [x] Remove async/await on test using
+- [x] Remove Babel
 - [ ] Implement feature to read file content and validates the functions names.
 - [ ] Improve dir name validation.
 - [ ] Add exceptions validation.
