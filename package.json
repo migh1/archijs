@@ -19,7 +19,6 @@
     "jest": "^24.9.0"
   },
   "devDependencies": {
-    "coveralls": "^3.0.6",
-    "archijs": "^2.2.1"
+    "coveralls": "^3.0.6"
   }
 }
