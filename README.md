@@ -1,5 +1,6 @@
 ![npm](https://img.shields.io/npm/v/archijs)
 ![Travis (.org) branch](https://img.shields.io/travis/migh1/archijs/master)
+[![Coverage Status](https://coveralls.io/repos/github/migh1/archijs/badge.svg)](https://coveralls.io/github/migh1/archijs)
 ![GitHub](https://img.shields.io/github/license/migh1/archijs)
 ![GitHub followers](https://img.shields.io/github/followers/migh1?label=%40migh1&style=social)
 
