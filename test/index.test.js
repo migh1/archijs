@@ -1,13 +1,13 @@
-const Archijs = require("../src/Archijs");
+const Archijs = require("archijs");
 
 test('Should have fileName according to folderName', () => {
-  const project = Archijs.parseFromPath("./test");
+  const project = Archijs.parseFromPath('test');
   const rule = Archijs
     .defineThat()
     .folder()
-    .withNameMatching('actions') // All foders that have "actions"
+    .withNameMatching('actions')
     .should()
-    .matchChildrensName('actions') // Check if the child file filtered before has "actions" on its name
+    .matchChildrensName('actions')
 
   expect(project).toMatchArch(rule);
 })
