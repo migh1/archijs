@@ -20,5 +20,13 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.6"
-  }
+  },
+  "keywords": [
+    "arch",
+    "architecture",
+    "test",
+    "unit test",
+    "automation",
+    "testing"
+  ]
 }
