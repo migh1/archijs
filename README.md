@@ -1,4 +1,5 @@
 ![npm](https://img.shields.io/npm/v/archijs)
+![Travis (.org) branch](https://img.shields.io/travis/migh1/archijs/master)
 ![GitHub](https://img.shields.io/github/license/migh1/archijs)
 ![GitHub followers](https://img.shields.io/github/followers/migh1?label=%40migh1&style=social)
 
@@ -22,11 +23,11 @@ describe("Javascript Architecture", () => {
     const rule = Archijs
       .defineThat()
       .folder()
-      .withNameMatching('actions') // All foders that have "actions" in the name
+      .withNameMatching('actions')
       .should()
-      .matchChildrensName('actions') // Check if the child file filtered before has "actions" on its name
+      .matchChildrensName('actions')
 
-    expect(project).toMatchArch(rule); // Working
+    expect(project).toMatchArch(rule);
   });
 });
 ```
@@ -41,9 +42,9 @@ describe("Javascript Architecture", () => {
 - [x] Implement @types/jest.
 - [x] Remove async/await on test using
 - [x] Remove Babel
+- [x] Add exceptions validation.
 - [ ] Implement feature to read file content and validates the functions names.
 - [ ] Improve dir name validation.
-- [ ] Add exceptions validation.
 
 ## Suggestions
 
