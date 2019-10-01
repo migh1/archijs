@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jest"
+    "test": "jest",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
   },
   "author": "Lucas Migliorini",
   "repository": {
@@ -18,6 +19,6 @@
     "jest": "^24.9.0"
   },
   "devDependencies": {
-    "archijs": "^2.2.1"
+    "coveralls": "^3.0.6"
   }
 }
