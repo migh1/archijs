@@ -20,10 +20,10 @@ class RuleBuilder {
 
   Init() {
     switch (this.nextCall) {
-      case 'files': return { files: (...source) => { this.files(...source); return this.Init('withNameMatching') } }
-      case 'folder': return { folder: (...source) => { this.folder(...source); return this.Init('withNameMatching') } }
+      case 'files': return { files: () => { this.files(); return this.Init('withNameMatching') } }
+      case 'folder': return { folder: () => { this.folder(); return this.Init('withNameMatching') } }
       case 'withNameMatching': return { withNameMatching: (...source) => { this.withNameMatching(...source); return this.Init('should') } }
-      case 'should': return { should: (...source) => { this.should(...source); return this.Init('matchChildrensName') } }
+      case 'should': return { should: () => { this.should(); return this.Init('matchChildrensName') } }
       case 'matchChildrensName': return { matchChildrensName: (...source) => this.matchChildrensName(...source) }
     }
   }

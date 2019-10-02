@@ -13,13 +13,10 @@ class Archijs {
   setParsedPath(parsedPath) { this.parsedPath = parsedPath; }
 
   getPathType() { return this.pathType }
-  setPathType(isFile) { this.pathType = isFile !== null ? isFile ? 'file' : 'folder' : null; }
+  setPathType(pathType) { this.pathType = pathType; }
 
   defineThat() {
-    if (this.pathType !== null) {
-      return RuleBuilder(this.getPath(), this.getParsedPath(), this.getPathType());
-    }
-    throw `Not a valid file/folder to continue...`;
+    return RuleBuilder(this.getPath(), this.getParsedPath(), this.getPathType());
   }
 
   parseFromPath(path) {
@@ -31,41 +28,62 @@ class Archijs {
     }
   }
 
-  isaValidFile(path) {
-    const isValidFile = path.split("/").pop().split('.').pop().match(RegExp("^(js|jsx)$", "g"));
-    const length = path.split("/").pop().split('.').pop().length;
-    const isTestFile = length > 2 ? true : false;
-    return isValidFile && !isTestFile;
+  isValidExtension(extensions) {
+    if (extensions.length === 1) {
+      if (extensions[0] === 'node_modules') {
+        return false;
+      }
+      return true;
+    } else {
+      if (extensions.includes('spec') || extensions.includes('test')) {
+        return false;
+      }
+      return true;
+    }
   }
+
+  // isaValidFile(path) {
+  //   const extensions = path.split("/").pop().split('.');
+  //   const isValidFile = this.isValidExtension(extensions);
+
+  //   const length = path.split("/").pop().split('.').pop().length;
+  //   const isTestFile = length > 2 ? true : false;
+  //   return isValidFile && !isTestFile;
+  // }
 
   traverseDir(dir, parsedPath) {
     if (!dir.match('node_modules') && fs.existsSync(dir)) {
       fs.readdirSync(dir).forEach(file => {
         let fullPath = fspath.join(dir, file).replace(/\\/g, '/');
-        parsedPath.push(fullPath);
+        const extensions = fullPath.split('/').pop().split('.');
+        if (this.isValidExtension(extensions)) {
+          parsedPath.push(fullPath);
+        }
         if (fs.lstatSync(fullPath).isDirectory()) {
           this.traverseDir(fullPath, parsedPath);
         }
       });
+    } else {
+      return parsedPath;
     }
     return parsedPath;
   }
 
   load(path) {
     this.setPath(path);
-    const isFile = path.split("/").pop().includes('.');
+    const isFile = path.split("/").pop().includes('.') ? 'file' : 'folder';
     this.setPathType(isFile);
-    return isFile ? this.loadAsFile(path) : this.loadAsDir(path);
+    return isFile === 'file' ? this.loadAsFile(path) : this.loadAsDir(path);
   }
 
   loadAsFile(path) {
-    let parsedPath = null;
-    let isFile = null;
-    if (this.isaValidFile(path)) {
-      parsedPath = fs.readFileSync(path, "utf8");
-      isFile = isaFile;
-    }
-    this.setParsedPath(parsedPath);
+    return path;
+    // TODO: implement loadAsFile feature
+    // let parsedPath = null;
+    // if (this.isaValidFile(path)) {
+    //   parsedPath = fs.readFileSync(path, "utf8");
+    // }
+    // this.setParsedPath(parsedPath);
   }
 
   loadAsDir(path) {
