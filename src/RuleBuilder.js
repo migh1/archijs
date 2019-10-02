@@ -25,6 +25,7 @@ class RuleBuilder {
       case 'withNameMatching': return { withNameMatching: (...source) => { this.withNameMatching(...source); return this.Init('should') } }
       case 'should': return { should: () => { this.should(); return this.Init('matchChildrensName') } }
       case 'matchChildrensName': return { matchChildrensName: (...source) => this.matchChildrensName(...source) }
+      default: return;
     }
   }
 }
