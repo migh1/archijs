@@ -44,6 +44,7 @@ describe("Javascript Architecture", () => {
 - [x] Remove async/await on test using
 - [x] Remove Babel
 - [x] Add exceptions validation.
+- [x] Improve unit tests coverage.
 - [ ] Implement feature to read file content and validates the functions names.
 - [ ] Improve dir name validation.
 
