@@ -1,6 +1,6 @@
 const Archijs = require("archijs");
 
-test('Should have fileName according to folderName', () => {
+it('Should have fileName according to folderName', () => {
   const project = Archijs.parseFromPath('test');
   const rule = Archijs
     .defineThat()

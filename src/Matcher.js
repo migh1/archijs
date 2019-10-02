@@ -22,19 +22,14 @@ expect.extend({
         const pass = fileNameMatch.length === 0;
 
         const message = pass
-          ? () =>
-            this.utils.matcherHint('toBe', undefined, undefined, options) +
-            '\n\n' +
-            `Expected: ${this.utils.printExpected(0)}\n` +
-            `Received: ${this.utils.printReceived(fileNameMatch.length)}`
-          : () => {
-            return (
-              this.utils.matcherHint('toBe', undefined, undefined, options) +
-              '\n\n' +
-              `Expected: ${this.utils.printExpected([])}\n` +
-              `Received: ${this.utils.printReceived(fileNameMatch)}`
-            );
-          };
+          ? this.utils.matcherHint('toBe', undefined, undefined, options) +
+          '\n\n' +
+          `Expected: ${this.utils.printExpected(0)}\n` +
+          `Received: ${this.utils.printReceived(fileNameMatch.length)}`
+          : this.utils.matcherHint('toBe', undefined, undefined, options) +
+          '\n\n' +
+          `Expected: ${this.utils.printExpected([])}\n` +
+          `Received: ${this.utils.printReceived(fileNameMatch)}`;
 
         return { actual: received, message, pass };
       case 'files':
